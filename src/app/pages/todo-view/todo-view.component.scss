@@ -1,0 +1,159 @@
+@import '../../../main-style.scss';
+.mat-drawer {
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.25) 200%);
+    background-blend-mode: multiply;
+    width: 20%;
+    padding: 1em;
+    color: #fff;
+    box-sizing: border-box;
+    .app-title {
+        border: 1.5px solid #fff;
+        border-radius: 1em;
+        text-align: center;
+        text-transform: capitalize;
+        padding: 1rem 0;
+        font-weight: bolder;
+        font-size: 1.6em;
+        margin-bottom: 2rem;
+    }
+    .container {
+        .content-tab {
+            display: none;
+            a {
+                color: #fff;
+            }
+        }
+        .display-content-tab {
+            display: block;
+        }
+    }
+}
+
+.todo-sidenav {
+    position: fixed;
+    top: 5%;
+    right: 1%;
+    transform: translate(-50%, -50%);
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    background: #fff;
+    .fa-bars {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+}
+
+.todo-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    // TODO: see the max-attribute
+    max-width: 1000px;
+    max-height: 600px;
+}
+
+.title {
+    size: 24px;
+    letter-spacing: 2px;
+    text-decoration: uppercase;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    padding: 48px;
+    background: #fff;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    .title-menu {
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        flex-grow: 1;
+        .title-menu-item {
+            display: flex;
+            border-radius: 5px;
+            width: 100%;
+            color: #5f5f5f;
+            margin-bottom: 5px;
+            padding: 10px 15px;
+            &:hover {
+                background: $light;
+            }
+            &.is-active {
+                background-color: #cff8ef;
+                color: $dark-green;
+            }
+        }
+    }
+    .button {
+        transition: transform 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+}
+
+.todo-list-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 48px;
+    flex-grow: 1;
+    .thing {
+        display: flex;
+        background: #fff;
+        border-radius: 5px;
+        margin-top: 10px;
+        padding: 10px 15px;
+        transition: box-shadow 0.2s cubic-bezier(0.075, 0.82, 0.165, 1), transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        &:not(.completed) {
+            cursor: pointer;
+            &:active {
+                transform: scale(0.95);
+            }
+            &:hover {
+                box-shadow: 0 0 12px 6px rgba(0, 0, 0, 0.05);
+                .task-buttons {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        }
+        &.completed .task-text {
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+        .task-text {
+            display: flex;
+            flex-grow: 1;
+        }
+        .task-buttons {
+            transition: opacity 0.2s, transform 0.2s;
+            opacity: 0;
+            transform: scale(0.85);
+        }
+    }
+    .top-bar {
+        margin-bottom: 20px;
+        display: flex;
+        .title {
+            flex-grow: 1;
+            margin: 0;
+        }
+    }
+}
+
+.empty-state-text {
+    font-size: 20px;
+    color: #777;
+    text-align: center;
+}

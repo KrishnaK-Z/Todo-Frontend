@@ -1,0 +1,117 @@
+<mat-drawer-container style="height: 100%">
+    <mat-drawer #drawer mode="side">
+        <div class="app-title">
+            <p>To-Thing</p>
+        </div>
+        <div class="tabs is-toggle is-fullwidth">
+            <ul>
+                <li [ngClass]="{'is-active': selectedTab==1}" (click)="selectTab()">
+                    <a>
+                        <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                        <span>Favourite</span>
+                    </a>
+                </li>
+                <li [ngClass]="{'is-active': selectedTab==2}" (click)="selectTab()">
+                    <a>
+                        <span class=" icon is-small "><i class="fas fa-bookmark"></i></span>
+                        <span>Recent</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container section">
+            <div id="Fav" class="content-tab" [ngClass]="{'display-content-tab': selectedTab==1}">
+                <a class="panel-block">Favourite</a>
+                <a class="panel-block">Favourite</a>
+            </div>
+            <div id="Rough" class="content-tab" [ngClass]="{'display-content-tab': selectedTab==2}">
+                <a class="panel-block">Recents</a>
+                <a class="panel-block">Recents</a>
+            </div>
+        </div>
+
+
+
+    </mat-drawer>
+
+    <div class="todo-sidenav " mat-button (click)="drawer.toggle() ">
+        <i class="fas fa-bars "></i>
+    </div>
+
+    <div class="centered-content ">
+        <div class="todo-container ">
+            <div class="sidebar has-background-white ">
+                <h1 class="title has-text-primary ">
+                    Todos
+                </h1>
+                <div class="title-menu ">
+                    <a class="title-menu-item " *ngFor="let todo of todos " [routerLink]="[ '/todo', todo._id] " routerLinkActive="is-active ">
+                        <p>{{todo.title}}</p>
+                    </a>
+                </div>
+                <button class="button is-primary " [routerLink]="[ '/new-todo'] " routerLinkActive="router-link-active ">+ New Todo</button>
+            </div>
+            <div class="todo-list-container has-background-light ">
+                <div *ngIf="things ">
+                    <div class="top-bar ">
+                        <h1 class="title has-text-primary ">
+                            Things to do
+                        </h1>
+                        <div class="dropdown is-hoverable is-right ">
+                            <div class="dropdown-trigger ">
+                                <button class="button " aria-haspopup="true " aria-controls="dropdown-menu4 ">
+                                    <span class="icon is-small ">
+                                      <i class="fas fa-cog " aria-hidden="true "></i>
+                                    </span>
+                                  </button>
+                            </div>
+                            <div class="dropdown-menu " id="dropdown-menu4 " role="menu ">
+                                <div class="dropdown-content ">
+                                    <a [routerLink]="[ '/edit-todo', selectedTodo] " routerLinkActive="router-link-active " class="dropdown-item ">
+                                        Edit
+                                    </a>
+                                    <a class="dropdown-item has-text-danger " (click)="onDeleteTodo() ">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thing " *ngFor="let thing of things " (click)="onClickThing(thing) " [ngClass]="{ 'completed': thing.completed} ">
+
+                        <div class="task-text ">
+                            <p>{{thing.thing}}</p>
+                        </div>
+                        <div class="task-buttons ">
+
+                            <button class="button " [routerLink]="[ '/todo', selectedTodo, 'edit-thing', thing._id] ">
+                                  <div class="icon ">
+                                    <i class="fas fa-edit "></i>
+                                  </div>
+                            </button>
+
+                            <button (click)="onDeleteThing(thing._id) " class="button is-danger " style="margin-left: 10px; ">
+                                  <div class="icon ">
+                                    <i class="fas fa-trash "></i>
+                                  </div>
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <h3 class="empty-state-text " *ngIf="things.length===0 "> Add a thing to do </h3>
+
+                    <button [routerLink]="[ './new-thing'] " routerLinkActive="router-link-active " class="circle-add-button button is-primary ">
+                        <img src="../../../assets/plus-icon.svg " class="has-text-white ">
+                    </button>
+                </div>
+                <div *ngIf="!things ">
+                    <h3 class="empty-state-text "> Please select a list to view things </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</mat-drawer-container>
